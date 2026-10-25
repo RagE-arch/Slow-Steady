@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f4f1e8" />
+  <title>Slow & Steady — Your little AI helper</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="Slow and Steady home">
+        <span class="brand-mark">s<span>•</span></span>
+        <span><strong>slow & steady</strong><small>less effort, more life</small></span>
+      </a>
+      <div class="side-label">YOUR WORKSPACE</div>
+      <button class="nav-item active" data-view="home"><span>⌂</span> Home</button>
+      <button class="nav-item" data-view="summarize"><span>≋</span> Summarize for me</button>
+      <button class="nav-item" data-view="plan"><span>✳</span> Make it manageable</button>
+      <button class="nav-item" data-view="write"><span>↗</span> Write it for me</button>
+      <div class="sidebar-bottom">
+        <div class="sloth-card"><div class="sloth-emoji">🦥</div><strong>Slow is a strategy.</strong><p>Let your little helper handle the busywork.</p></div>
+        <div class="local-status"><span class="status-dot"></span><span id="sidebarStatus">Checking local AI…</span></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="breadcrumb">Your space <span>/</span> <b id="crumb">Home</b></div>
+        <div class="top-actions"><span class="privacy-pill"><span>⌑</span> Private by design</span><button id="settingsBtn" class="icon-button" title="Settings" aria-label="Settings">⚙</button></div>
+      </header>
+
+      <section id="homeView" class="view active">
+        <div class="hero">
+          <div class="hero-copy">
+            <div class="eyebrow"><span class="sparkle">✳</span> YOUR PERSONAL LOW-EFFORT ASSISTANT</div>
+            <h1>Do less of the<br><em>boring stuff.</em></h1>
+            <p>Small tasks add up. Give them to Slow & Steady and get a little time back for yourself.</p>
+            <button class="primary-button" data-go="summarize">Let’s make life easier <span>↗</span></button>
+          </div>
+          <div class="hero-art" aria-label="Illustration of a relaxed sloth">
+            <div class="sun"></div><div class="leaf leaf-one"></div><div class="leaf leaf-two"></div>
+            <div class="plant pot-left"></div><div class="plant pot-right"></div>
+            <div class="sloth-illustration"><div class="branch"></div><div class="arm arm-left"></div><div class="arm arm-right"></div><div class="sloth-body"></div><div class="sloth-face"><div class="eye eye-left"></div><div class="eye eye-right"></div><div class="mask"></div><div class="nose"></div><div class="smile"></div></div></div>
+            <div class="art-caption">no rush, no fuss.</div>
+          </div>
+        </div>
+
+        <div class="section-heading"><div><span class="eyebrow">PICK YOUR SHORTCUT</span><h2>What can I take off your plate?</h2></div><span class="tiny-note">Three little ways to do less</span></div>
+        <div class="tool-grid">
+          <button class="tool-card card-mint" data-go="summarize"><span class="tool-icon">≋</span><span class="card-arrow">↗</span><h3>Summarize for me</h3><p>Turn a wall of text into the useful bits. No scrolling marathon needed.</p><span class="card-link">Make it shorter <b>→</b></span></button>
+          <button class="tool-card card-peach" data-go="plan"><span class="tool-icon">✳</span><span class="card-arrow">↗</span><h3>Make it manageable</h3><p>Break that overwhelming task into tiny, doable steps.</p><span class="card-link">Find my first step <b>→</b></span></button>
+          <button class="tool-card card-lilac" data-go="write"><span class="tool-icon">↗</span><span class="card-arrow">↗</span><h3>Write it for me</h3><p>Draft that message, email, or reply you keep putting off.</p><span class="card-link">Get words flowing <b>→</b></span></button>
+        </div>
+
+        <div class="bottom-row">
+          <div class="quote-card"><span class="quote-mark">“</span><div><p>You don’t have to do everything today. You just have to make the next thing easier.</p><small>— a friendly reminder from your sloth</small></div><span class="quote-leaf">✳</span></div>
+          <div class="connection-card"><div class="connection-top"><span class="connection-icon">⌘</span><span class="connection-label">AI CONNECTION</span><span id="statusBadge" class="badge">Checking…</span></div><h3 id="connectionTitle">Checking your local model</h3><p id="connectionText">Slow & Steady can use Ollama and an open-weight model on your own computer.</p><button id="retryBtn" class="text-button">Check connection ↗</button></div>
+        </div>
+      </section>
+
+      <section id="summarizeView" class="view work-view">
+        <button class="back-link" data-go="home">← Back home</button>
+        <div class="work-heading"><span class="eyebrow">SHORTCUT 01 · SUMMARIZE</span><h1>Give me the <em>gist.</em></h1><p>Paste the long thing. Get the useful thing. Your eyes deserve a break.</p></div>
+        <div class="workspace-card">
+          <label for="summaryInput">WHAT SHOULD I SUMMARIZE?</label>
+          <textarea id="summaryInput" placeholder="Paste an article, class notes, a long message, meeting notes…"></textarea>
+          <div class="workspace-footer"><span><span class="privacy-mini">⌑</span> Text stays on your device when using local AI</span><button id="summarizeBtn" class="primary-button">Summarize it <span>✳</span></button></div>
+        </div>
+        <div id="summaryResult" class="result-card hidden"><div class="result-title"><span>✳</span><div><b>Your short version</b><small>Less reading, more breathing.</small></div><button class="copy-button" data-copy="summaryOutput">Copy</button></div><div id="summaryOutput" class="result-content"></div></div>
+      </section>
+
+      <section id="planView" class="view work-view">
+        <button class="back-link" data-go="home">← Back home</button>
+        <div class="work-heading"><span class="eyebrow">SHORTCUT 02 · BREAK IT DOWN</span><h1>One tiny step <em>at a time.</em></h1><p>Tell me what you’ve been putting off. We’ll make it feel less huge.</p></div>
+        <div class="workspace-card">
+          <label for="planInput">WHAT'S THE TASK?</label>
+          <textarea id="planInput" class="short-textarea" placeholder="e.g. Prepare a presentation, clean up my downloads folder, study for a test…"></textarea>
+          <div class="option-row"><label for="energySelect">MY ENERGY LEVEL</label><select id="energySelect"><option value="low">Low — please keep it easy</option><option value="medium">Medium — I can focus a little</option><option value="high">High — let's make progress</option></select></div>
+          <div class="workspace-footer"><span>We’ll start with the smallest useful action.</span><button id="planBtn" class="primary-button">Make a gentle plan <span>✳</span></button></div>
+        </div>
+        <div id="planResult" class="result-card hidden"><div class="result-title"><span>✳</span><div><b>Your gentle plan</b><small>Small steps still count.</small></div><button class="copy-button" data-copy="planOutput">Copy</button></div><div id="planOutput" class="result-content checklist-output"></div></div>
+      </section>
+
+      <section id="writeView" class="view work-view">
+        <button class="back-link" data-go="home">← Back home</button>
+        <div class="work-heading"><span class="eyebrow">SHORTCUT 03 · FIND THE WORDS</span><h1>Let me <em>word that.</em></h1><p>Get a first draft without staring at a blinking cursor.</p></div>
+        <div class="workspace-card">
+          <label for="writeInput">WHAT DO YOU NEED TO SAY?</label>
+          <textarea id="writeInput" placeholder="Tell me who it's for and what you want to communicate…"></textarea>
+          <div class="option-row"><label for="toneSelect">THE VIBE</label><select id="toneSelect"><option value="friendly and natural">Friendly & natural</option><option value="professional and concise">Professional & concise</option><option value="warm and thoughtful">Warm & thoughtful</option><option value="casual and direct">Casual & direct</option></select></div>
+          <div class="workspace-footer"><span>It's a draft, so make it yours.</span><button id="writeBtn" class="primary-button">Draft it for me <span>↗</span></button></div>
+        </div>
+        <div id="writeResult" class="result-card hidden"><div class="result-title"><span>✳</span><div><b>Your first draft</b><small>Edit freely before you send.</small></div><button class="copy-button" data-copy="writeOutput">Copy</button></div><div id="writeOutput" class="result-content"></div></div>
+      </section>
+
+      <div id="settingsModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+        <div class="modal-panel"><button id="closeSettings" class="modal-close" aria-label="Close settings">×</button><span class="eyebrow">A LITTLE TWEAKING</span><h2 id="settingsTitle">Your local AI settings</h2><p>Connect to Ollama running on your computer. No API key needed.</p><label for="ollamaUrl">OLLAMA ADDRESS</label><input id="ollamaUrl" value="http://localhost:11434" />
+          <label for="modelName">MODEL NAME</label><input id="modelName" value="qwen2.5:3b" />
+          <div class="modal-note"><b>Need the model?</b><code>ollama pull qwen2.5:3b</code><br><small>Then run <code>ollama serve</code> if Ollama isn't already running.</small></div>
+          <button id="saveSettings" class="primary-button full-button">Save & test connection <span>↗</span></button>
+          <p class="fine-print">Your settings are saved in this browser only. This demo sends prompts to your local Ollama service.</p>
+        </div>
+      </div>
+      <div id="toast" class="toast" role="status"></div>
+      <footer class="footer"><span>slow & steady <span class="footer-dot">✳</span> made for a softer workflow</span><span>Open models. Your machine. Your pace.</span></footer>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
